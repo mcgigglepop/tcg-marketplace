@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/gob"
 	"flag"
 	"fmt"
@@ -13,7 +14,12 @@ import (
 	"github.com/alexedwards/scs/v2"
 	"github.com/gomodule/redigo/redis"
 
+	awsConfig "github.com/aws/aws-sdk-go-v2/config"
+	"github.com/mcgigglepop/tcg-marketplace/server/internal/cognito"
 	appConfig "github.com/mcgigglepop/tcg-marketplace/server/internal/config"
+	"github.com/mcgigglepop/tcg-marketplace/server/internal/handlers"
+	"github.com/mcgigglepop/tcg-marketplace/server/internal/helpers"
+	"github.com/mcgigglepop/tcg-marketplace/server/internal/render"
 )
 
 const portNumber = ":80"
@@ -127,6 +133,32 @@ func run() error {
 	session.Cookie.SameSite = http.SameSiteLaxMode
 	session.Cookie.Secure = app.InProduction
 	app.Session = session
+
+	// AWS SDK config
+	awsCfg, err := awsConfig.LoadDefaultConfig(context.TODO())
+	if err != nil {
+		log.Fatal("failed to load AWS config:", err)
+	}
+
+	// Cognito client
+	cognitoClient, err := cognito.NewCognitoClientWithCfg(awsCfg, *cognitoUserPoolID, *cognitoClientID)
+	if err != nil {
+		log.Fatal("failed to create Cognito client:", err)
+	}
+
+	app.CognitoClient = cognitoClient
+
+	tc, err := render.CreateTemplateCache()
+	if err != nil {
+		log.Fatal("Cannot create template cache")
+		return err
+	}
+	app.TemplateCache = tc
+
+	repo := handlers.NewRepo(&app)
+	handlers.NewHandlers(repo)
+	render.NewRenderer(&app)
+	helpers.NewHelpers(&app)
 
 	return nil
 }
