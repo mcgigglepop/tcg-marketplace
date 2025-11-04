@@ -1,0 +1,62 @@
+{{define "base"}}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <title>Collectorset</title>
+   
+    {{block "css" .}} {{ end }}
+
+  </head>
+  <body class="{{template "BodyClass" .}}">
+    {{block "content" .}} {{ end }}
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+
+    <script src="/static/js/theme.min.js"></script>
+    {{block "js" .}} {{ end }}
+
+    <script>
+      {{with .Error}}
+        Toastify({
+          text: "{{.}}",
+          duration: 3000,
+          gravity: "bottom",
+          position: "right",
+          stopOnFocus: true,
+          style: { background: "linear-gradient(to right, #B71C1C, #D32F2F)" },
+        }).showToast();
+      {{end}}
+
+      {{with .Flash}}
+        Toastify({
+          text: "{{.}}",
+          duration: 3000,
+          gravity: "bottom",
+          position: "right",
+          stopOnFocus: true,
+          style: { background: "linear-gradient(to right, #2E7D32, #4CAF50)" },
+        }).showToast();
+      {{end}}
+
+      {{with .Warning}}
+        Toastify({
+          text: "{{.}}",
+          duration: 3000,
+          gravity: "bottom",
+          position: "right",
+          stopOnFocus: true,
+          style: { background: "linear-gradient(to right, #E65100, #FB8C00)" },
+        }).showToast();
+      {{end}}
+    </script>
+    {{ end }}
+  </body>
+</html>
