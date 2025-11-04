@@ -1,14 +1,14 @@
 resource "aws_cognito_user_pool" "main" {
   name = var.user_pool_name
 
-  auto_verified_attributes = ["email"]
+  auto_verified_attributes = var.auto_verified_attributes
 
   email_configuration {
-    email_sending_account = "COGNITO_DEFAULT"
+    email_sending_account = var.email_sending_account
   }
 
   verification_message_template {
-    default_email_option = "CONFIRM_WITH_CODE"
+    default_email_option = var.verification_email_option
   }
 
   account_recovery_setting {
@@ -17,15 +17,25 @@ resource "aws_cognito_user_pool" "main" {
       priority = 1
     }
   }
+
+  password_policy {
+    minimum_length    = var.password_minimum_length
+    require_lowercase = var.password_require_lowercase
+    require_numbers   = var.password_require_numbers
+    require_symbols   = var.password_require_symbols
+    require_uppercase = var.password_require_uppercase
+  }
+
+  tags = var.tags
 }
 
 resource "aws_cognito_user_pool_client" "client" {
-  name         = "${var.user_pool_name}-client"
+  name         = var.client_name != null ? var.client_name : "${var.user_pool_name}-client"
   user_pool_id = aws_cognito_user_pool.main.id
 
-  explicit_auth_flows = [
-    "ALLOW_USER_PASSWORD_AUTH",
-    "ALLOW_REFRESH_TOKEN_AUTH",
-    "ALLOW_USER_SRP_AUTH",
-  ]
+  explicit_auth_flows = var.explicit_auth_flows
+
+  generate_secret = var.generate_client_secret
+
+  refresh_token_validity = var.refresh_token_validity_days
 }

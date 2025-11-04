@@ -6,8 +6,9 @@ resource "random_password" "redis_auth_token" {
 
 # Secrets Manager secret to store Redis auth token
 resource "aws_secretsmanager_secret" "redis_auth" {
-  name        = "collectorset/redisAuthToken/production"
-  description = "Redis AUTH token for collectorset prod environment"
+  name        = var.secret_name
+  description = var.secret_description
+  tags        = var.tags
 }
 
 resource "aws_secretsmanager_secret_version" "redis_auth_version" {
@@ -20,26 +21,24 @@ resource "aws_secretsmanager_secret_version" "redis_auth_version" {
 
 # Elasticache subnet group
 resource "aws_elasticache_subnet_group" "redis_subnet_group" {
-  name       = "ecs-redis-subnet-group"
+  name       = var.subnet_group_name
   subnet_ids = var.private_subnets
-
-  tags = {
-    Name = "ecs-redis-subnet-group"
-  }
+  tags       = var.tags
 }
 
 # Security group for Redis
 resource "aws_security_group" "redis_sg" {
-  name        = "ecs-redis-sg"
-  description = "Allow ECS tasks to connect to Redis"
+  name        = var.security_group_name
+  description = var.security_group_description
   vpc_id      = var.vpc_id
+  tags        = merge(var.tags, { Name = var.security_group_name })
 
   ingress {
-    description      = "Allow ECS to Redis"
-    from_port        = 6379
-    to_port          = 6379
-    protocol         = "tcp"
-    security_groups  = [var.ecs_security_group_id] # ECS SG
+    description     = "Allow ECS to Redis"
+    from_port       = 6379
+    to_port         = 6379
+    protocol        = "tcp"
+    security_groups = [var.ecs_security_group_id]
   }
 
   egress {
@@ -48,23 +47,21 @@ resource "aws_security_group" "redis_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-  tags = {
-    Name = "ecs-redis-sg"
-  }
 }
 
 # Redis Replication Group
 resource "aws_elasticache_replication_group" "redis" {
-  replication_group_id          = "collectorset-redis-prod"
-  description = "Redis replication group for collectorset prod"
-  node_type                     = "cache.t3.micro"
-  num_cache_clusters         = 1
-  automatic_failover_enabled    = false
-  transit_encryption_enabled    = true
-  at_rest_encryption_enabled    = true
-  auth_token                    = random_password.redis_auth_token.result
-  port                          = 6379
-  security_group_ids            = [aws_security_group.redis_sg.id]
-  subnet_group_name             = aws_elasticache_subnet_group.redis_subnet_group.name
+  replication_group_id       = var.replication_group_id
+  description                = var.description
+  node_type                  = var.redis_node_type
+  num_cache_clusters         = var.num_cache_clusters
+  automatic_failover_enabled = var.automatic_failover_enabled
+  transit_encryption_enabled = true
+  at_rest_encryption_enabled = true
+  auth_token                 = random_password.redis_auth_token.result
+  port                       = 6379
+  engine_version             = var.redis_engine_version
+  security_group_ids         = [aws_security_group.redis_sg.id]
+  subnet_group_name          = aws_elasticache_subnet_group.redis_subnet_group.name
+  tags                       = var.tags
 }
