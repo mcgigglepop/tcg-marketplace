@@ -84,3 +84,39 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "allowed_oauth_flows" {
+  description = "Allowed OAuth flows"
+  type        = list(string)
+  default     = ["code"]
+}
+
+variable "allowed_oauth_scopes" {
+  description = "Allowed OAuth scopes"
+  type        = list(string)
+  default     = ["openid", "email", "profile"]
+}
+
+variable "callback_urls" {
+  description = "Callback URLs"
+  type        = list(string)
+  default     = ["https://oauth.pstmn.io/v1/callback"]
+}
+
+variable "logout_urls" {
+  description = "Logout URLs"
+  type        = list(string)
+  default     = ["https://example.com"]
+}
+
+variable "supported_identity_providers" {
+  description = "Supported identity providers"
+  type        = list(string)
+  default     = ["COGNITO"]
+}
+
+variable "domain_name" {
+  description = "Domain name"
+  type        = string
+  default     = null
+}

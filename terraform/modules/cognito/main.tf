@@ -38,4 +38,15 @@ resource "aws_cognito_user_pool_client" "client" {
   generate_secret = var.generate_client_secret
 
   refresh_token_validity = var.refresh_token_validity_days
+
+  allowed_oauth_flows          = var.allowed_oauth_flows
+  allowed_oauth_scopes         = var.allowed_oauth_scopes
+  callback_urls                = var.callback_urls
+  logout_urls                  = var.logout_urls
+  supported_identity_providers = var.supported_identity_providers
+}
+
+resource "aws_cognito_user_pool_domain" "this" {
+  domain       = var.domain_name
+  user_pool_id = aws_cognito_user_pool.this.id
 }

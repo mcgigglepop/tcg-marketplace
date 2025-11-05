@@ -1,18 +1,27 @@
+######################
 # AWS Provider Variables
+######################
+
 variable "aws_region" {
   description = "AWS region where resources will be created"
   type        = string
   default     = "us-east-1"
 }
 
+######################
 # Common Variables
+######################
+
 variable "tags" {
   description = "Tags to apply to all resources"
   type        = map(string)
   default     = {}
 }
 
-# Cognito Variables
+######################
+# # Cognito Variables
+######################
+
 variable "user_pool_name" {
   description = "Name for the Cognito User Pool"
   type        = string
@@ -82,6 +91,36 @@ variable "cognito_explicit_auth_flows" {
   ]
 }
 
+variable "cognito_allowed_oauth_flows" {
+  description = "Allowed OAuth flows"
+  type        = list(string)
+  default     = ["code"]
+}
+
+variable "cognito_allowed_oauth_scopes" {
+  description = "Allowed OAuth scopes"
+  type        = list(string)
+  default     = ["openid", "email", "profile"]
+}
+
+variable "cognito_callback_urls" {
+  description = "Callback URLs"
+  type        = list(string)
+  default     = ["https://oauth.pstmn.io/v1/callback"]
+}
+
+variable "cognito_logout_urls" {
+  description = "Logout URLs"
+  type        = list(string)
+  default     = ["https://example.com"]
+}
+
+variable "cognito_supported_identity_providers" {
+  description = "Supported identity providers"
+  type        = list(string)
+  default     = ["COGNITO"]
+}
+
 variable "cognito_generate_client_secret" {
   description = "Whether to generate a client secret"
   type        = bool
@@ -94,7 +133,16 @@ variable "cognito_refresh_token_validity_days" {
   default     = 30
 }
 
+variable "cognito_domain_name" {
+  description = "Domain name"
+  type        = string
+  default     = null
+}
+
+######################
 # Redis Variables
+######################
+
 variable "vpc_id" {
   description = "VPC ID where Redis will be deployed"
   type        = string

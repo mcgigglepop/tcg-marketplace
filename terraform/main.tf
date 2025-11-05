@@ -2,20 +2,26 @@
 module "cognito" {
   source = "./modules/cognito"
 
-  user_pool_name              = var.user_pool_name
-  client_name                 = var.cognito_client_name
-  auto_verified_attributes    = var.cognito_auto_verified_attributes
-  email_sending_account       = var.cognito_email_sending_account
-  verification_email_option   = var.cognito_verification_email_option
-  password_minimum_length     = var.cognito_password_minimum_length
-  password_require_lowercase  = var.cognito_password_require_lowercase
-  password_require_numbers    = var.cognito_password_require_numbers
-  password_require_symbols    = var.cognito_password_require_symbols
-  password_require_uppercase  = var.cognito_password_require_uppercase
-  explicit_auth_flows         = var.cognito_explicit_auth_flows
-  generate_client_secret      = var.cognito_generate_client_secret
-  refresh_token_validity_days = var.cognito_refresh_token_validity_days
-  tags                        = var.tags
+  user_pool_name               = var.user_pool_name
+  client_name                  = var.cognito_client_name
+  auto_verified_attributes     = var.cognito_auto_verified_attributes
+  email_sending_account        = var.cognito_email_sending_account
+  verification_email_option    = var.cognito_verification_email_option
+  password_minimum_length      = var.cognito_password_minimum_length
+  password_require_lowercase   = var.cognito_password_require_lowercase
+  password_require_numbers     = var.cognito_password_require_numbers
+  password_require_symbols     = var.cognito_password_require_symbols
+  password_require_uppercase   = var.cognito_password_require_uppercase
+  explicit_auth_flows          = var.cognito_explicit_auth_flows
+  generate_client_secret       = var.cognito_generate_client_secret
+  refresh_token_validity_days  = var.cognito_refresh_token_validity_days
+  tags                         = var.tags
+  allowed_oauth_flows          = var.cognito_allowed_oauth_flows
+  allowed_oauth_scopes         = var.cognito_allowed_oauth_scopes
+  callback_urls                = var.cognito_callback_urls
+  logout_urls                  = var.cognito_logout_urls
+  supported_identity_providers = var.cognito_supported_identity_providers
+  domain_name                  = var.cognito_domain_name
 }
 
 # Redis Module
