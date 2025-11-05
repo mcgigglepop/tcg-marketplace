@@ -88,50 +88,58 @@ func run() error {
 	app.InfoLog = infoLog
 	app.ErrorLog = errorLog
 
-	// Redis connection setup using redigo
-	redisEndpoint := getEnvOrExit("REDIS_ENDPOINT") // format: host:port
-	redisPassword := os.Getenv("REDIS_PASSWORD")    // optional
-
-	// Create a redigo connection pool
-	pool := &redis.Pool{
-		MaxIdle:     10,
-		MaxActive:   100,
-		IdleTimeout: 240 * time.Second,
-		Dial: func() (redis.Conn, error) {
-			opts := []redis.DialOption{}
-			if redisPassword != "" {
-				opts = append(opts, redis.DialPassword(redisPassword))
-			}
-			c, err := redis.Dial("tcp", redisEndpoint, opts...)
-			if err != nil {
-				return nil, fmt.Errorf("failed to connect to Redis: %v", err)
-			}
-			return c, nil
-		},
-		TestOnBorrow: func(c redis.Conn, t time.Time) error {
-			if time.Since(t) < time.Minute {
-				return nil
-			}
-			_, err := c.Do("PING")
-			return err
-		},
-	}
-
-	// Test connection immediately
-	conn := pool.Get()
-	defer conn.Close()
-	if _, err := conn.Do("PING"); err != nil {
-		log.Fatalf("failed to connect to Redis: %v", err)
-	}
-	infoLog.Println("Connected to Redis for session storage")
-
-	// set up session
+	// Set up session based on production mode
 	session = scs.New()
-	session.Store = redisstore.New(pool)
 	session.Lifetime = 24 * time.Hour
 	session.Cookie.Persist = true
 	session.Cookie.SameSite = http.SameSiteLaxMode
 	session.Cookie.Secure = app.InProduction
+
+	if app.InProduction {
+		// Redis connection setup using redigo for production
+		redisEndpoint := getEnvOrExit("REDIS_ENDPOINT") // format: host:port
+		redisPassword := os.Getenv("REDIS_PASSWORD")    // optional
+
+		// Create a redigo connection pool
+		pool := &redis.Pool{
+			MaxIdle:     10,
+			MaxActive:   100,
+			IdleTimeout: 240 * time.Second,
+			Dial: func() (redis.Conn, error) {
+				opts := []redis.DialOption{}
+				if redisPassword != "" {
+					opts = append(opts, redis.DialPassword(redisPassword))
+				}
+				c, err := redis.Dial("tcp", redisEndpoint, opts...)
+				if err != nil {
+					return nil, fmt.Errorf("failed to connect to Redis: %v", err)
+				}
+				return c, nil
+			},
+			TestOnBorrow: func(c redis.Conn, t time.Time) error {
+				if time.Since(t) < time.Minute {
+					return nil
+				}
+				_, err := c.Do("PING")
+				return err
+			},
+		}
+
+		// Test connection immediately
+		conn := pool.Get()
+		defer conn.Close()
+		if _, err := conn.Do("PING"); err != nil {
+			log.Fatalf("failed to connect to Redis: %v", err)
+		}
+		infoLog.Println("Connected to Redis for session storage")
+
+		// Use Redis store for production
+		session.Store = redisstore.New(pool)
+	} else {
+		// Use in-memory store for development
+		infoLog.Println("Using in-memory session store (development mode)")
+	}
+
 	app.Session = session
 
 	// AWS SDK config
