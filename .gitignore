@@ -34,3 +34,5 @@ go.work.sum
 node_modules/
 
 terraform/*.tfvars
+
+server/*-build
