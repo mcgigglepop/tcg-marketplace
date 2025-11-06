@@ -151,6 +151,11 @@ variable "cognito_domain_name" {
   default     = null
 }
 
+variable "post_confirmation_arn" {
+  description = "ARN of the Lambda function to invoke after user confirmation"
+  type        = string
+  default     = null
+}
 ######################
 # Redis Variables
 ######################

@@ -26,6 +26,10 @@ resource "aws_cognito_user_pool" "main" {
     require_uppercase = var.password_require_uppercase
   }
 
+  lambda_config {
+    post_confirmation = var.post_confirmation_arn
+  }
+  
   tags = var.tags
 }
 

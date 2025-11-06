@@ -24,6 +24,7 @@ module "cognito" {
   logout_urls                  = var.cognito_logout_urls
   supported_identity_providers = var.cognito_supported_identity_providers
   domain_name                  = var.cognito_domain_name
+  post_confirmation_arn        = var.post_confirmation_arn
 }
 
 # Redis Module
