@@ -1,0 +1,10 @@
+# Static assets directory
+static/
+
+# Common ignore patterns
+node_modules/
+*.min.js
+*.min.css
+*.map
+vendor/
+
