@@ -12,7 +12,7 @@ resource "aws_secretsmanager_secret" "redis_auth" {
 }
 
 resource "aws_secretsmanager_secret_version" "redis_auth_version" {
-  secret_id     = aws_secretsmanager_secret.redis_auth.id
+  secret_id = aws_secretsmanager_secret.redis_auth.id
   secret_string = jsonencode({
     username = "default"
     password = random_password.redis_auth_token.result

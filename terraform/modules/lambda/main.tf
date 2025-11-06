@@ -5,7 +5,7 @@ resource "aws_lambda_function" "this" {
   runtime       = var.runtime
   timeout       = var.timeout
   memory_size   = var.memory_size
-  description    = var.description
+  description   = var.description
 
   # Deployment package configuration
   package_type = var.package_type

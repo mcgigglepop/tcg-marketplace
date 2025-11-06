@@ -29,7 +29,7 @@ resource "aws_cognito_user_pool" "main" {
   lambda_config {
     post_confirmation = var.post_confirmation_arn
   }
-  
+
   tags = var.tags
 }
 
