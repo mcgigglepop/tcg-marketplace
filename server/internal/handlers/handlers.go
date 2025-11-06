@@ -4,6 +4,8 @@ import (
 	"net/http"
 
 	"github.com/mcgigglepop/tcg-marketplace/server/internal/config"
+	"github.com/mcgigglepop/tcg-marketplace/server/internal/models"
+	"github.com/mcgigglepop/tcg-marketplace/server/internal/render"
 )
 
 // Repo is the repository used by the handlers.
@@ -35,6 +37,11 @@ func (m *Repository) GetHealth(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(`{"status":"ok"}`))
+}
+
+// GetRegister is the register page handler
+func (m *Repository) GetRegister(w http.ResponseWriter, r *http.Request) {
+	render.Template(w, r, "register.page.tmpl", &models.TemplateData{})
 }
 
 // /////////////////////////////////////////////////////////////
