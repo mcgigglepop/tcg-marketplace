@@ -14,14 +14,14 @@ import (
 func routes(app *config.AppConfig) http.Handler {
 	mux := chi.NewRouter()
 
-	// Public routes
-	mux.Get("/health", handlers.Repo.GetHealth)
-
 	// Global middleware
 	mux.Use(middleware.Recoverer) // Recover from panics
 	mux.Use(NoSurf)               // CSRF protection
 	mux.Use(SessionLoad)          // Load and save session data
 	mux.Use(ProxyFix)             // trust ALB’s X-Forwarded-Proto: https header
+
+	// Public routes
+	mux.Get("/health", handlers.Repo.GetHealth)
 
 	// Serve static files from the ./static directory
 	fileServer := http.FileServer(http.Dir("./static/"))
