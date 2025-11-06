@@ -237,3 +237,124 @@ variable "redis_security_group_description" {
   default     = "Security group for Redis cluster"
 }
 
+######################
+# Lambda Variables
+######################
+
+variable "lambda_function_name_prefix" {
+  description = "Prefix for Lambda function names (functions will be named {prefix}-{function-key})"
+  type        = string
+  default     = "tcg-marketplace"
+}
+
+variable "lambda_function_name" {
+  description = "Name of the Lambda function (deprecated - use lambda_function_name_prefix instead)"
+  type        = string
+  default     = null
+}
+
+variable "lambda_role_arn" {
+  description = "IAM role ARN attached to the Lambda function"
+  type        = string
+  default     = null
+}
+
+variable "lambda_handler" {
+  description = "Function entrypoint in your code (e.g., index.handler)"
+  type        = string
+  default     = null
+}
+
+variable "lambda_runtime" {
+  description = "Lambda runtime (e.g., nodejs20.x, python3.11, go1.x)"
+  type        = string
+  default     = "nodejs20.x"
+}
+
+variable "lambda_timeout" {
+  description = "Amount of time Lambda function has to run in seconds"
+  type        = number
+  default     = 3
+}
+
+variable "lambda_memory_size" {
+  description = "Amount of memory in MB your Lambda function can use"
+  type        = number
+  default     = 128
+}
+
+variable "lambda_description" {
+  description = "Description of the Lambda function"
+  type        = string
+  default     = ""
+}
+
+variable "lambda_package_type" {
+  description = "Lambda deployment package type (Zip or Image)"
+  type        = string
+  default     = "Zip"
+}
+
+variable "lambda_filename" {
+  description = "Path to the function's deployment package (local zip file)"
+  type        = string
+  default     = null
+}
+
+variable "lambda_s3_bucket" {
+  description = "S3 bucket name containing the function's deployment package"
+  type        = string
+  default     = null
+}
+
+variable "lambda_s3_key" {
+  description = "S3 key of an object containing the function's deployment package"
+  type        = string
+  default     = null
+}
+
+variable "lambda_s3_object_version" {
+  description = "Object version containing the function's deployment package"
+  type        = string
+  default     = null
+}
+
+variable "lambda_image_uri" {
+  description = "ECR image URI containing the function's deployment package (for Image package type)"
+  type        = string
+  default     = null
+}
+
+variable "lambda_environment_variables" {
+  description = "Map of environment variables for the Lambda function"
+  type        = map(string)
+  default     = {}
+}
+
+variable "lambda_vpc_config" {
+  description = "VPC configuration for the Lambda function"
+  type = object({
+    subnet_ids         = list(string)
+    security_group_ids = list(string)
+  })
+  default = null
+}
+
+variable "lambda_dead_letter_target_arn" {
+  description = "ARN of an SQS queue or SNS topic for the dead letter queue"
+  type        = string
+  default     = null
+}
+
+variable "lambda_tracing_mode" {
+  description = "Tracing mode (PassThrough, Active)"
+  type        = string
+  default     = "PassThrough"
+}
+
+variable "lambda_ephemeral_storage_size" {
+  description = "Amount of ephemeral storage (/tmp) in MB (512-10240)"
+  type        = number
+  default     = 512
+}
+

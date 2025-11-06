@@ -1,3 +1,25 @@
+locals {
+  functions = {
+    post_confirmation = {
+      function_name = "${var.lambda_function_name_prefix}-post-confirmation"
+      handler       = var.lambda_handler != null ? var.lambda_handler : "index.handler"
+      runtime       = var.lambda_runtime
+      timeout       = var.lambda_timeout
+      memory_size   = var.lambda_memory_size
+      description   = var.lambda_description != "" ? var.lambda_description : "Post confirmation Lambda function"
+      filename      = "${path.module}/../../../dist/zips/postConfirmation.zip"
+      environment_variables = merge(
+        var.lambda_environment_variables,
+        { USER_TABLE = try(module.user_data_table[0].table_name, "") }
+      )
+    }
+  }
+
+  fn_arn    = { for k, m in module.lambda : k => m.function_arn }
+  fn_name   = { for k, m in module.lambda : k => m.function_name }
+  fn_invoke = { for k, m in module.lambda : k => m.invoke_arn }
+}
+
 # Cognito User Pool Module
 module "cognito" {
   count = var.enable_cognito ? 1 : 0
@@ -23,8 +45,8 @@ module "cognito" {
   callback_urls                = var.cognito_callback_urls
   logout_urls                  = var.cognito_logout_urls
   supported_identity_providers = var.cognito_supported_identity_providers
-  domain_name                  = var.cognito_domain_name
-  post_confirmation_arn        = var.post_confirmation_arn
+  domain_name           = var.cognito_domain_name
+  post_confirmation_arn = try(module.lambda["post_confirmation"].function_arn, var.post_confirmation_arn)
 }
 
 # Redis Module
@@ -48,5 +70,31 @@ module "redis" {
   security_group_name        = var.redis_security_group_name
   security_group_description = var.redis_security_group_description
   tags                       = var.tags
+}
+
+# Lambda Module
+module "lambda" {
+  source   = "./modules/lambda"
+  for_each = local.functions
+
+  function_name         = each.value.function_name
+  role_arn              = var.lambda_role_arn
+  handler               = each.value.handler
+  runtime               = each.value.runtime
+  timeout               = each.value.timeout
+  memory_size           = each.value.memory_size
+  description           = each.value.description
+  package_type          = var.lambda_package_type
+  filename              = try(each.value.filename, null)
+  s3_bucket             = try(each.value.s3_bucket, var.lambda_s3_bucket)
+  s3_key                = try(each.value.s3_key, var.lambda_s3_key)
+  s3_object_version     = try(each.value.s3_object_version, var.lambda_s3_object_version)
+  image_uri             = try(each.value.image_uri, var.lambda_image_uri)
+  environment_variables = try(each.value.environment_variables, var.lambda_environment_variables)
+  vpc_config            = try(each.value.vpc_config, var.lambda_vpc_config)
+  dead_letter_target_arn = try(each.value.dead_letter_target_arn, var.lambda_dead_letter_target_arn)
+  tracing_mode          = var.lambda_tracing_mode
+  ephemeral_storage_size = var.lambda_ephemeral_storage_size
+  tags                  = var.tags
 }
 

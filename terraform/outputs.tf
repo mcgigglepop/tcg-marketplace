@@ -46,3 +46,34 @@ output "redis_replication_group_id" {
   value       = var.enable_redis ? module.redis[0].replication_group_id : null
 }
 
+# Lambda Outputs
+output "lambda_function_names" {
+  description = "Map of Lambda function names"
+  value       = local.fn_name
+}
+
+output "lambda_function_arns" {
+  description = "Map of Lambda function ARNs"
+  value       = local.fn_arn
+}
+
+output "lambda_invoke_arns" {
+  description = "Map of ARNs to be used for invoking Lambda functions from API Gateway"
+  value       = local.fn_invoke
+}
+
+output "lambda_qualified_arns" {
+  description = "Map of qualified ARNs (ARN with version) of Lambda functions"
+  value       = { for k, m in module.lambda : k => m.qualified_arn }
+}
+
+output "lambda_versions" {
+  description = "Map of Lambda function versions"
+  value       = { for k, m in module.lambda : k => m.version }
+}
+
+output "lambda_last_modified" {
+  description = "Map of last modified dates for Lambda functions"
+  value       = { for k, m in module.lambda : k => m.last_modified }
+}
+
