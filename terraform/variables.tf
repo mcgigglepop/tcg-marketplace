@@ -18,6 +18,18 @@ variable "tags" {
   default     = {}
 }
 
+variable "enable_cognito" {
+  description = "Enable Cognito module (set via TF_VAR_enable_cognito environment variable)"
+  type        = bool
+  default     = false
+}
+
+variable "enable_redis" {
+  description = "Enable Redis module (set via TF_VAR_enable_redis environment variable)"
+  type        = bool
+  default     = false
+}
+
 ######################
 # # Cognito Variables
 ######################

@@ -1,5 +1,7 @@
 # Cognito User Pool Module
 module "cognito" {
+  count = var.enable_cognito ? 1 : 0
+
   source = "./modules/cognito"
 
   user_pool_name               = var.user_pool_name
@@ -26,6 +28,8 @@ module "cognito" {
 
 # Redis Module
 module "redis" {
+  count = var.enable_redis ? 1 : 0
+
   source = "./modules/redis"
 
   vpc_id                     = var.vpc_id
