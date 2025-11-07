@@ -126,3 +126,14 @@ resource "aws_iam_role_policy_attachment" "dynamodb_attachment" {
   role       = aws_iam_role.lambda_exec_role.name
   policy_arn = aws_iam_policy.dynamodb_access.arn
 }
+
+module "lambda" {
+  source   = "./modules/lambda"
+  for_each = local.functions
+  name     = "${var.application_name}-${each.key}-${var.environment}"
+  role_arn = aws_iam_role.lambda_exec_role.arn
+  zip_path = each.value.zip
+  handler  = "index.handler"
+  env      = each.value.env
+  tags     = var.tags
+}
