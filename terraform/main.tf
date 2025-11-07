@@ -1,4 +1,15 @@
+locals {
+  functions = {
+    post_confirmation = {
+      zip = "${path.module}/../dist/zips/postConfirmation.zip"
+      env = { USER_TABLE = module.dynamodb.table_name }
+    }
+  }
 
+  fn_arn    = { for k, m in module.lambda : k => m.function_arn }
+  fn_name   = { for k, m in module.lambda : k => m.function_name }
+  fn_invoke = { for k, m in module.lambda : k => m.invoke_arn }
+}
 
 # Cognito User Pool Module
 module "cognito" {
@@ -57,4 +68,61 @@ module "dynamodb" {
   table_name = var.dynamodb_table_name
   billing_mode = var.dynamodb_billing_mode
   tags = var.tags
+}
+
+resource "aws_iam_role" "lambda_exec_role" {
+  name = "${var.application_name}_lambda_exec_role_${var.environment}"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [{
+      Effect    = "Allow",
+      Principal = { Service = "lambda.amazonaws.com" },
+      Action    = "sts:AssumeRole"
+    }]
+  })
+}
+
+resource "aws_iam_policy" "lambda_log_access" {
+  name = "${var.application_name}_lambda_log_access_${var.environment}"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        Resource = "arn:aws:logs:*:*:*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "log_access_attachment" {
+  role       = aws_iam_role.lambda_exec_role.name
+  policy_arn = aws_iam_policy.lambda_log_access.arn
+}
+
+resource "aws_iam_policy" "dynamodb_access" {
+  name = "${var.application_name}_lambda_dynamo_access_${var.environment}"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect   = "Allow",
+        Action   = ["dynamodb:GetItem", "dynamodb:PutItem", "dynamodb:Query", "dynamodb:UpdateItem"],
+        Resource = module.dynamodb.table_arn
+      },
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "dynamodb_attachment" {
+  role       = aws_iam_role.lambda_exec_role.name
+  policy_arn = aws_iam_policy.dynamodb_access.arn
 }

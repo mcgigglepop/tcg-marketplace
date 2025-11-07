@@ -36,6 +36,15 @@ variable "enable_dynamodb" {
   default     = false
 }
 
+variable "application_name" {
+  description = "Name of the application"
+  type        = string
+}
+
+variable "environment" {
+  description = "Environment"
+  type        = string
+}
 ######################
 # # Cognito Variables
 ######################
