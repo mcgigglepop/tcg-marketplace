@@ -30,6 +30,12 @@ variable "enable_redis" {
   default     = false
 }
 
+variable "enable_dynamodb" {
+  description = "Enable DynamoDB module (set via TF_VAR_enable_dynamodb environment variable)"
+  type        = bool
+  default     = false
+}
+
 ######################
 # # Cognito Variables
 ######################
@@ -356,5 +362,123 @@ variable "lambda_ephemeral_storage_size" {
   description = "Amount of ephemeral storage (/tmp) in MB (512-10240)"
   type        = number
   default     = 512
+}
+
+######################
+# DynamoDB Variables
+######################
+
+variable "dynamodb_table_name" {
+  description = "Name of the DynamoDB table"
+  type        = string
+  default     = "marketplace"
+}
+
+variable "dynamodb_billing_mode" {
+  description = "Billing mode for the DynamoDB table (PROVISIONED or PAY_PER_REQUEST)"
+  type        = string
+  default     = "PAY_PER_REQUEST"
+}
+
+variable "dynamodb_hash_key" {
+  description = "Hash key attribute name for the DynamoDB table"
+  type        = string
+  default     = "PK"
+}
+
+variable "dynamodb_range_key" {
+  description = "Range key attribute name for the DynamoDB table"
+  type        = string
+  default     = "SK"
+}
+
+variable "dynamodb_attributes" {
+  description = "List of attribute definitions for the DynamoDB table"
+  type = list(object({
+    name = string
+    type = string
+  }))
+  default = [
+    { name = "PK", type = "S" },
+    { name = "SK", type = "S" },
+    { name = "GSI1PK", type = "S" },
+    { name = "GSI1SK", type = "S" },
+    { name = "GSI2PK", type = "S" },
+    { name = "GSI2SK", type = "S" }
+  ]
+}
+
+variable "dynamodb_global_secondary_indexes" {
+  description = "List of global secondary indexes for the DynamoDB table"
+  type = list(object({
+    name            = string
+    hash_key        = string
+    range_key       = optional(string)
+    projection_type = string
+    read_capacity   = optional(number)
+    write_capacity  = optional(number)
+  }))
+  default = [
+    {
+      name            = "GSI1"
+      hash_key        = "GSI1PK"
+      range_key       = "GSI1SK"
+      projection_type = "ALL"
+    },
+    {
+      name            = "GSI2"
+      hash_key        = "GSI2PK"
+      range_key       = "GSI2SK"
+      projection_type = "ALL"
+    }
+  ]
+}
+
+variable "dynamodb_point_in_time_recovery_enabled" {
+  description = "Enable point-in-time recovery for the DynamoDB table"
+  type        = bool
+  default     = true
+}
+
+variable "dynamodb_server_side_encryption_enabled" {
+  description = "Enable server-side encryption for the DynamoDB table"
+  type        = bool
+  default     = true
+}
+
+variable "dynamodb_kms_key_id" {
+  description = "ARN of the KMS key to use for encryption (if null, uses AWS managed key)"
+  type        = string
+  default     = null
+}
+
+variable "dynamodb_ttl_enabled" {
+  description = "Enable Time to Live (TTL) for the DynamoDB table"
+  type        = bool
+  default     = true
+}
+
+variable "dynamodb_ttl_attribute_name" {
+  description = "Name of the attribute to use for TTL"
+  type        = string
+  default     = "ttl"
+}
+
+variable "dynamodb_stream_enabled" {
+  description = "Enable DynamoDB Streams"
+  type        = bool
+  default     = false
+}
+
+variable "dynamodb_stream_view_type" {
+  description = "Stream view type (KEYS_ONLY, NEW_IMAGE, OLD_IMAGE, NEW_AND_OLD_IMAGES)"
+  type        = string
+  default     = "NEW_AND_OLD_IMAGES"
+}
+
+variable "dynamodb_deletion_protection_enabled" {
+  description = "Enable deletion protection for the DynamoDB table"
+  type        = bool
+  default     = false
 }
 

@@ -77,3 +77,24 @@ output "lambda_last_modified" {
   value       = { for k, m in module.lambda : k => m.last_modified }
 }
 
+# DynamoDB Outputs
+output "dynamodb_table_id" {
+  description = "ID of the DynamoDB table"
+  value       = var.enable_dynamodb ? module.user_data_table[0].table_id : null
+}
+
+output "dynamodb_table_arn" {
+  description = "ARN of the DynamoDB table"
+  value       = var.enable_dynamodb ? module.user_data_table[0].table_arn : null
+}
+
+output "dynamodb_table_name" {
+  description = "Name of the DynamoDB table"
+  value       = var.enable_dynamodb ? module.user_data_table[0].table_name : null
+}
+
+output "dynamodb_table_stream_arn" {
+  description = "ARN of the DynamoDB stream (if enabled)"
+  value       = var.enable_dynamodb ? module.user_data_table[0].table_stream_arn : null
+}
+

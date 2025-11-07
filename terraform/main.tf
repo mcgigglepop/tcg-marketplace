@@ -72,6 +72,29 @@ module "redis" {
   tags                       = var.tags
 }
 
+# DynamoDB Module - User Data Table
+module "user_data_table" {
+  count = var.enable_dynamodb ? 1 : 0
+
+  source = "./modules/dynamodb"
+
+  table_name = var.dynamodb_table_name
+  billing_mode = var.dynamodb_billing_mode
+  hash_key = var.dynamodb_hash_key
+  range_key = var.dynamodb_range_key
+  attributes = var.dynamodb_attributes
+  global_secondary_indexes = var.dynamodb_global_secondary_indexes
+  point_in_time_recovery_enabled = var.dynamodb_point_in_time_recovery_enabled
+  server_side_encryption_enabled = var.dynamodb_server_side_encryption_enabled
+  kms_key_id = var.dynamodb_kms_key_id
+  ttl_enabled = var.dynamodb_ttl_enabled
+  ttl_attribute_name = var.dynamodb_ttl_attribute_name
+  stream_enabled = var.dynamodb_stream_enabled
+  stream_view_type = var.dynamodb_stream_view_type
+  deletion_protection_enabled = var.dynamodb_deletion_protection_enabled
+  tags = var.tags
+}
+
 # Lambda Module
 module "lambda" {
   source   = "./modules/lambda"
