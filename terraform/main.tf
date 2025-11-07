@@ -26,7 +26,7 @@ module "cognito" {
   logout_urls                  = var.cognito_logout_urls
   supported_identity_providers = var.cognito_supported_identity_providers
   domain_name                  = var.cognito_domain_name
-  post_confirmation_arn        = try(module.lambda["post_confirmation"].function_arn, var.post_confirmation_arn)
+  # post_confirmation_arn        = try(module.lambda["post_confirmation"].function_arn, var.post_confirmation_arn)
 }
 
 # Redis Module
@@ -50,4 +50,11 @@ module "redis" {
   security_group_name        = var.redis_security_group_name
   security_group_description = var.redis_security_group_description
   tags                       = var.tags
+}
+
+module "dynamodb" {
+  source = "./modules/dynamodb"
+  table_name = var.dynamodb_table_name
+  billing_mode = var.dynamodb_billing_mode
+  tags = var.tags
 }

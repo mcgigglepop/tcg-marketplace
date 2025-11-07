@@ -242,3 +242,17 @@ variable "redis_security_group_description" {
   type        = string
   default     = "Security group for Redis cluster"
 }
+
+######################
+# DynamoDB Variables
+######################
+
+variable "dynamodb_table_name" {
+  description = "Name of the DynamoDB table"
+  type        = string
+}
+
+variable "dynamodb_billing_mode" {
+  description = "Billing mode for the DynamoDB table"
+  type        = string
+}
