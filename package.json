@@ -6,7 +6,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "zip": "node scripts/zip.mjs",
-    "package": "npm run build && npm run zip",
+    "package": "npm run build && npm run zip"
   },
   "devDependencies": {
     "esbuild": "^0.23.0",
