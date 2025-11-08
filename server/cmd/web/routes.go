@@ -32,7 +32,7 @@ func routes(app *config.AppConfig) http.Handler {
 	// Protected routes (require authentication)
 	mux.Route("/", func(mux chi.Router) {
 		mux.Use(Auth) // Authentication middleware
-		mux.Get("/dashboard", handlers.Repo.GetDashboard)
+		mux.Get("/dashboard", handlers.Repo.GetBuyerDashboard)
 		mux.Get("/logout", handlers.Repo.GetLogout)
 	})
 

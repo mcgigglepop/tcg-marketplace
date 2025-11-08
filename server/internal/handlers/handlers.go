@@ -81,8 +81,8 @@ func (m *Repository) GetLogout(w http.ResponseWriter, r *http.Request) {
 }
 
 // GetDashboard is the dashboard page handler
-func (m *Repository) GetDashboard(w http.ResponseWriter, r *http.Request) {
-	render.Template(w, r, "dashboard.page.tmpl", &models.TemplateData{})
+func (m *Repository) GetBuyerDashboard(w http.ResponseWriter, r *http.Request) {
+	render.Template(w, r, "buyer-dashboard.page.tmpl", &models.TemplateData{})
 }
 
 // /////////////////////////////////////////////////////////////
