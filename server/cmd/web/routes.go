@@ -23,7 +23,12 @@ func routes(app *config.AppConfig) http.Handler {
 	// Public routes
 	mux.Get("/health", handlers.Repo.GetHealth)
 	mux.Get("/register", handlers.Repo.GetRegister)
+	mux.Post("/register", handlers.Repo.PostRegister)
 	mux.Get("/login", handlers.Repo.GetLogin)
+	mux.Post("/login", handlers.Repo.PostLogin)
+	mux.Get("/email-verification", handlers.Repo.GetEmailVerification)
+	mux.Post("/email-verification", handlers.Repo.PostEmailVerification)
+
 	// Serve static files from the ./static directory
 	fileServer := http.FileServer(http.Dir("./static/"))
 	mux.Handle("/static/*", http.StripPrefix("/static", fileServer))
