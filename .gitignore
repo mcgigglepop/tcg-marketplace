@@ -38,3 +38,4 @@ terraform/*.tfvars
 terraform/terraform.tfstate*
 terraform/.terraform*
 server/*-build
+dist/
