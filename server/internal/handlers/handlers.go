@@ -70,6 +70,21 @@ func (m *Repository) GetEmailVerification(w http.ResponseWriter, r *http.Request
 	})
 }
 
+// GetLogout is the logout page handler
+func (m *Repository) GetLogout(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+
+	_ = m.App.Session.Destroy(ctx)
+	_ = m.App.Session.RenewToken(ctx)
+
+	http.Redirect(w, r, "/login", http.StatusSeeOther)
+}
+
+// GetDashboard is the dashboard page handler
+func (m *Repository) GetDashboard(w http.ResponseWriter, r *http.Request) {
+	render.Template(w, r, "dashboard.page.tmpl", &models.TemplateData{})
+}
+
 // /////////////////////////////////////////////////////////////
 // /////////////////// POST REQUESTS ///////////////////////////
 // /////////////////////////////////////////////////////////////
@@ -251,5 +266,5 @@ func (m *Repository) PostLogin(w http.ResponseWriter, r *http.Request) {
 	m.App.Session.Put(ctx, "refresh_token", authResponse.RefreshToken)
 
 	m.App.Session.Put(ctx, "flash", "Logged in successfully.")
-	http.Redirect(w, r, "/track-calories", http.StatusSeeOther)
+	http.Redirect(w, r, "/dashboard", http.StatusSeeOther)
 }

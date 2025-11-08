@@ -29,6 +29,13 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Get("/email-verification", handlers.Repo.GetEmailVerification)
 	mux.Post("/email-verification", handlers.Repo.PostEmailVerification)
 
+	// Protected routes (require authentication)
+	mux.Route("/", func(mux chi.Router) {
+		mux.Use(Auth) // Authentication middleware
+		mux.Get("/dashboard", handlers.Repo.GetDashboard)
+		mux.Get("/logout", handlers.Repo.GetLogout)
+	})
+
 	// Serve static files from the ./static directory
 	fileServer := http.FileServer(http.Dir("./static/"))
 	mux.Handle("/static/*", http.StripPrefix("/static", fileServer))
