@@ -1,4 +1,5 @@
 {{template "base" .}} {{define "BodyClass"}}{{end}}{{define "css"}}
+<link rel="stylesheet" href="/static/dashboard-assets/vendor/tom-select/dist/css/tom-select.bootstrap5.css" />
 <style>
   .otp-input {
     width: 50px;
@@ -139,7 +140,9 @@
 </main>
 <!-- ========== END MAIN CONTENT ========== -->
 {{end}} {{define "js"}}
-<script src="/static/vendor/hs-toggle-password/dist/js/hs-toggle-password.js"></script>
+<!-- JS Implementing Plugins -->
+<script src="/static/dashboard-assets/vendor/hs-toggle-password/dist/js/hs-toggle-password.js"></script>
+<script src="/static/dashboard-assets/vendor/tom-select/dist/js/tom-select.complete.min.js"></script>
 <script>
   const inputs = document.querySelectorAll('.otp-input');
 

@@ -1,4 +1,6 @@
-{{template "base" .}} {{define "BodyClass"}}d-flex align-items-center min-h-100{{end}} {{define "css"}} {{end}} {{define
+{{template "base" .}} {{define "BodyClass"}}d-flex align-items-center min-h-100{{end}} {{define "css"}}
+<link rel="stylesheet" href="/static/dashboard-assets/vendor/tom-select/dist/css/tom-select.bootstrap5.css" />
+{{end}} {{define
 "content"}} {{template "_header" .}}
 <main id="content" role="main" class="main pt-0">
   <!-- Content -->
@@ -320,6 +322,9 @@
   <!-- End Content -->
 </main>
 {{end}} {{define "js"}}
+<!-- JS Implementing Plugins -->
+<script src="/static/dashboard-assets/vendor/hs-toggle-password/dist/js/hs-toggle-password.js"></script>
+<script src="/static/dashboard-assets/vendor/tom-select/dist/js/tom-select.complete.min.js"></script>
 <!-- JS Plugins Init. -->
 <script>
   (function () {
