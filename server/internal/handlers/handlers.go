@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"log"
 	"net/http"
 	"strings"
 
@@ -55,10 +54,11 @@ func (m *Repository) GetLogin(w http.ResponseWriter, r *http.Request) {
 // EmailVerificationGet handles GET requests for the email verification page.
 // Redirects to login if no email is found in session.
 func (m *Repository) GetEmailVerification(w http.ResponseWriter, r *http.Request) {
-	email := m.App.Session.GetString(r.Context(), "user_email")
+	ctx := r.Context()
+	email := m.App.Session.GetString(ctx, "user_email")
 
 	if email == "" {
-		log.Println("No email found in session, cannot verify email")
+		m.App.InfoLog.Println("email verification attempted without session email; redirecting to login")
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
@@ -127,33 +127,38 @@ func (m *Repository) PostRegister(w http.ResponseWriter, r *http.Request) {
 // EmailVerificationPost handles POST requests for email verification.
 // Validates OTP form, confirms user with Cognito, and redirects appropriately.
 func (m *Repository) PostEmailVerification(w http.ResponseWriter, r *http.Request) {
-	if err := m.App.Session.RenewToken(r.Context()); err != nil {
-		m.App.ErrorLog.Println("Session token renewal failed:", err)
+	ctx := r.Context()
+
+	if err := m.App.Session.RenewToken(ctx); err != nil {
+		m.App.ErrorLog.Printf("session renewal failed during email verification: %v", err)
+		http.Error(w, "unable to process request", http.StatusInternalServerError)
+		return
 	}
 
-	email := m.App.Session.GetString(r.Context(), "user_email")
-
+	email := strings.ToLower(strings.TrimSpace(m.App.Session.GetString(ctx, "user_email")))
 	if email == "" {
+		m.App.InfoLog.Println("email verification attempted without session email; redirecting to login")
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
 
 	if err := r.ParseForm(); err != nil {
-		m.App.ErrorLog.Println("ParseForm error:", err)
+		m.App.ErrorLog.Printf("email verification form parse failed: %v", err)
+		http.Error(w, "invalid form submission", http.StatusBadRequest)
+		return
 	}
 
 	form := forms.New(r.PostForm)
 	form.Required("otpFirst", "otpSecond", "otpThird", "otpFourth", "otpFifth", "otpSixth")
 
 	if !form.Valid() {
-		log.Printf("[DEBUG] Form validation failed: %+v", form.Errors)
+		w.WriteHeader(http.StatusUnprocessableEntity)
 		render.Template(w, r, "email-verification.page.tmpl", &models.TemplateData{
 			Form: form,
 		})
 		return
 	}
 
-	// Concatenate OTP digits from form fields
 	otpCode := strings.TrimSpace(
 		r.Form.Get("otpFirst") +
 			r.Form.Get("otpSecond") +
@@ -163,67 +168,88 @@ func (m *Repository) PostEmailVerification(w http.ResponseWriter, r *http.Reques
 			r.Form.Get("otpSixth"),
 	)
 
-	_, err := m.App.CognitoClient.ConfirmUser(r.Context(), email, otpCode)
-	if err != nil {
-		m.App.ErrorLog.Printf("Cognito ConfirmUser failed: %v", err)
-		m.App.Session.Put(r.Context(), "error", "Email verification failed. Please try again.")
+	if len(otpCode) != 6 {
+		m.App.ErrorLog.Printf("invalid OTP length for %s", email)
+		m.App.Session.Put(ctx, "error", "Invalid code. Please enter the 6-digit code sent to your email.")
 		http.Redirect(w, r, "/email-verification", http.StatusSeeOther)
 		return
 	}
 
-	// Remove user email from session after successful verification
-	m.App.Session.Remove(r.Context(), "user_email")
-	m.App.Session.Put(r.Context(), "flash", "Email Verified.")
+	if _, err := m.App.CognitoClient.ConfirmUser(ctx, email, otpCode); err != nil {
+		m.App.ErrorLog.Printf("cognito ConfirmUser failed for %s: %v", email, err)
+		m.App.Session.Put(ctx, "error", "Email verification failed. Please try again.")
+		http.Redirect(w, r, "/email-verification", http.StatusSeeOther)
+		return
+	}
+
+	m.App.InfoLog.Printf("email verified for %s", email)
+
+	m.App.Session.Remove(ctx, "user_email")
+	m.App.Session.Put(ctx, "flash", "Email verified successfully. You can now log in.")
 	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }
 
 // LoginPost handles POST requests for user login.
 // Validates form, logs in user with Cognito, and sets session tokens.
 func (m *Repository) PostLogin(w http.ResponseWriter, r *http.Request) {
-	if err := m.App.Session.RenewToken(r.Context()); err != nil {
-		m.App.ErrorLog.Println("Session token renewal failed:", err)
+	ctx := r.Context()
+
+	if err := m.App.Session.RenewToken(ctx); err != nil {
+		m.App.ErrorLog.Printf("session renewal failed during login: %v", err)
+		http.Error(w, "unable to process request", http.StatusInternalServerError)
+		return
 	}
 
-	err := r.ParseForm()
-	if err != nil {
-		m.App.ErrorLog.Println("ParseForm error:", err)
+	if err := r.ParseForm(); err != nil {
+		m.App.ErrorLog.Printf("login form parse failed: %v", err)
+		http.Error(w, "invalid form submission", http.StatusBadRequest)
+		return
 	}
 
 	form := forms.New(r.PostForm)
-
 	form.Required("email", "password")
 	form.IsEmail("email")
 
 	if !form.Valid() {
+		w.WriteHeader(http.StatusUnprocessableEntity)
 		render.Template(w, r, "login.page.tmpl", &models.TemplateData{
 			Form: form,
 		})
 		return
 	}
 
-	email := strings.TrimSpace(r.Form.Get("email"))
+	email := strings.ToLower(strings.TrimSpace(r.Form.Get("email")))
 	password := r.Form.Get("password")
 
-	auth_response, userErr := m.App.CognitoClient.Login(r.Context(), email, password)
-	if userErr != nil {
-		m.App.ErrorLog.Println("Cognito Login failed:", userErr)
-		m.App.Session.Put(r.Context(), "error", "Login failed. Please try again.")
+	if email == "" || password == "" {
+		m.App.ErrorLog.Println("login missing email or password after validation")
+		http.Error(w, "missing login details", http.StatusBadRequest)
+		return
+	}
+
+	authResponse, err := m.App.CognitoClient.Login(ctx, email, password)
+	if err != nil {
+		m.App.ErrorLog.Printf("cognito Login failed for %s: %v", email, err)
+		m.App.Session.Put(ctx, "error", "Login failed. Please try again.")
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
 
-	sub, err := m.App.CognitoClient.ExtractSubFromToken(r.Context(), auth_response.IdToken)
-
+	sub, err := m.App.CognitoClient.ExtractSubFromToken(ctx, authResponse.IdToken)
 	if err != nil {
-		// handle error
+		m.App.ErrorLog.Printf("failed extracting sub from token for %s: %v", email, err)
+		m.App.Session.Put(ctx, "error", "Login failed. Please try again.")
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
 	}
 
-	// Store user ID and tokens in session
-	m.App.Session.Put(r.Context(), "user_id", sub)
-	m.App.Session.Put(r.Context(), "id_token", auth_response.IdToken)
-	m.App.Session.Put(r.Context(), "access_token", auth_response.AccessToken)
-	m.App.Session.Put(r.Context(), "refresh_token", auth_response.RefreshToken)
+	m.App.InfoLog.Printf("user %s logged in", sub)
 
-	m.App.Session.Put(r.Context(), "flash", "login successfully.")
+	m.App.Session.Put(ctx, "user_id", sub)
+	m.App.Session.Put(ctx, "id_token", authResponse.IdToken)
+	m.App.Session.Put(ctx, "access_token", authResponse.AccessToken)
+	m.App.Session.Put(ctx, "refresh_token", authResponse.RefreshToken)
+
+	m.App.Session.Put(ctx, "flash", "Logged in successfully.")
 	http.Redirect(w, r, "/track-calories", http.StatusSeeOther)
 }
