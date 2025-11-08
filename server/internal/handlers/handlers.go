@@ -76,7 +76,7 @@ func (m *Repository) GetLogout(w http.ResponseWriter, r *http.Request) {
 
 	_ = m.App.Session.Destroy(ctx)
 	_ = m.App.Session.RenewToken(ctx)
-
+	m.App.Session.Put(ctx, "flash", "Logged out successfully.")
 	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }
 
