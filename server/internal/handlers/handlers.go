@@ -44,6 +44,10 @@ func (m *Repository) GetRegister(w http.ResponseWriter, r *http.Request) {
 	render.Template(w, r, "register.page.tmpl", &models.TemplateData{})
 }
 
+// GetLogin is the login page handler
+func (m *Repository) GetLogin(w http.ResponseWriter, r *http.Request) {
+	render.Template(w, r, "login.page.tmpl", &models.TemplateData{})
+}
 // /////////////////////////////////////////////////////////////
 // /////////////////// POST REQUESTS ///////////////////////////
 // /////////////////////////////////////////////////////////////
