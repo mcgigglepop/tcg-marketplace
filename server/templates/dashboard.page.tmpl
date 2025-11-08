@@ -1,6 +1,10 @@
-{{template "base" .}} {{define "BodyClass"}}d-flex align-items-center min-h-100{{end}} {{define "css"}} {{end}} {{define
-"content"}} {{template "_auth_header" .}}
+{{template "base" .}} {{define "BodyClass"}}has-navbar-vertical-aside navbar-vertical-aside-show-xl footer-offset{{end}}
+{{define "css"}}
+<link rel="stylesheet" href="/static/dashboard-assets/vendor/daterangepicker/daterangepicker.css" />
+<link rel="stylesheet" href="/static/dashboard-assets/vendor/jsvectormap/dist/css/jsvectormap.min.css" />
+<link rel="stylesheet" href="/static/dashboard-assets/vendor/tom-select/dist/css/tom-select.bootstrap5.css" />
+{{end}} {{define "content"}}
+<script src="/static/dashboard-assets/js/hs.theme-appearance.js"></script>
+<script src="/static/dashboard-assets/vendor/hs-navbar-vertical-aside/dist/hs-navbar-vertical-aside-mini-cache.js"></script>
 
-{{end}} {{define "js"}}
-
-{{ end }}
+{{template "_auth_header" .}} {{end}} {{define "js"}} {{ end }}
