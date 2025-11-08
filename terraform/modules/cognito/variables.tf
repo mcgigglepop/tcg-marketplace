@@ -126,3 +126,9 @@ variable "post_confirmation_arn" {
   type        = string
   default     = null
 }
+
+variable "post_confirmation_function_name" {
+  description = "Name of the Lambda function to invoke after user confirmation"
+  type        = string
+  default     = null
+}

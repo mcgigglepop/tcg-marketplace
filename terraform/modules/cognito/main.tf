@@ -54,3 +54,11 @@ resource "aws_cognito_user_pool_domain" "this" {
   domain       = var.domain_name
   user_pool_id = aws_cognito_user_pool.main.id
 }
+
+resource "aws_lambda_permission" "allow_cognito_to_invoke" {
+  statement_id  = "AllowExecutionFromCognito"
+  action        = "lambda:InvokeFunction"
+  function_name = var.post_confirmation_function_name
+  principal     = "cognito-idp.amazonaws.com"
+  source_arn    = aws_cognito_user_pool.main.arn
+}
