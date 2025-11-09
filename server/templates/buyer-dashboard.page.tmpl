@@ -1,58 +1,126 @@
-{{template "base" .}} {{define "BodyClass"}}{{end}}
-{{define "css"}}
-{{end}} {{define "content"}}
-
-{{template "_buyer_header" .}}
+{{template "base" .}} {{define "BodyClass"}}{{end}} {{define "css"}} {{end}} {{define "content"}} {{template
+"_buyer_header" .}}
 <main id="content" role="main" class="main">
-  <!-- Content -->
   <div class="content container-fluid">
-    <!-- Page Header -->
-   <!-- Nav -->
-   <div class="js-nav-scroller hs-nav-scroller-horizontal mb-5">
-    <span class="hs-nav-scroller-arrow-prev" style="display: none;">
-      <a class="hs-nav-scroller-arrow-link" href="javascript:;">
-        <i class="bi-chevron-left"></i>
-      </a>
-    </span>
-
-    <span class="hs-nav-scroller-arrow-next" style="display: none;">
-      <a class="hs-nav-scroller-arrow-link" href="javascript:;">
-        <i class="bi-chevron-right"></i>
-      </a>
-    </span>
-
-    <ul class="nav nav-tabs align-items-center">
-      <li class="nav-item">
-        <a class="nav-link active" href="./user-profile.html">Products</a>
-      </li>
-     
-
-      <li class="nav-item ms-auto">
-        <div class="d-flex gap-2">
-          <button class="btn btn-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEcommerceProductFilter" aria-controls="offcanvasEcommerceProductFilter">
-              <i class="bi-filter me-1"></i> Filters
+    <div class="js-nav-scroller hs-nav-scroller-horizontal mb-5">
+      <span class="hs-nav-scroller-arrow-prev" style="display: none">
+        <a class="hs-nav-scroller-arrow-link" href="javascript:;">
+          <i class="bi-chevron-left"></i>
+        </a>
+      </span>
+      <span class="hs-nav-scroller-arrow-next" style="display: none">
+        <a class="hs-nav-scroller-arrow-link" href="javascript:;">
+          <i class="bi-chevron-right"></i>
+        </a>
+      </span>
+      <ul class="nav nav-tabs align-items-center">
+        <li class="nav-item">
+          <a class="nav-link active" href="./user-profile.html">Products</a>
+        </li>
+        <li class="nav-item ms-auto">
+          <div class="d-flex gap-2">
+            <button
+              class="btn btn-white"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasEcommerceProductFilter"
+              aria-controls="offcanvasEcommerceProductFilter"
+            >
+              <i class="bi-filter me-1"></i>
+              Filters
             </button>
-
             <button class="btn btn-white" type="button">
-              <i class="bi-person-plus-fill me-1"></i> Become a Seller
+              <i class="bi-person-plus-fill me-1"></i>
+              Become a Seller
             </button>
-
-
-       
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 mb-5">
+      <div class="col mb-3 mb-lg-5">
+        <div class="card card-sm card-hover-shadow h-100 text-center">
+          <div class="form-check form-check-switch card-pinned-top-start zi-2">
+            <input class="form-check-input" type="checkbox" value="" id="starredCheckbox4" checked />
+            <label class="form-check-label btn-icon btn-xs rounded-circle" for="starredCheckbox4">
+              <span class="form-check-default" data-bs-toggle="tooltip" data-bs-placement="top" title="Pin">
+                <i class="bi-star"></i>
+              </span>
+              <span class="form-check-active" data-bs-toggle="tooltip" data-bs-placement="top" title="Pinned">
+                <i class="bi-star-fill"></i>
+              </span>
+            </label>
+          </div>
+          <div class="dropdown card-pinned-top-end">
+            <button
+              type="button"
+              class="btn btn-ghost-secondary btn-icon btn-sm card-dropdown-btn rounded-circle"
+              id="pinnedAccessDropdown4"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="bi-three-dots-vertical"></i>
+            </button>
+            <div
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="pinnedAccessDropdown4"
+              style="min-width: 13rem"
+            >
+              <span class="dropdown-header">Settings</span>
+              <a class="dropdown-item" href="#">
+                <i class="bi-share dropdown-item-icon"></i>
+                Share folder
+              </a>
+              <a class="dropdown-item" href="#">
+                <i class="bi-folder-plus dropdown-item-icon"></i>
+                Move to
+              </a>
+              <a class="dropdown-item" href="#">
+                <i class="bi-star dropdown-item-icon"></i>
+                Add to stared
+              </a>
+              <a class="dropdown-item" href="#">
+                <i class="bi-pencil dropdown-item-icon"></i>
+                Rename
+              </a>
+              <a class="dropdown-item" href="#">
+                <i class="bi-download dropdown-item-icon"></i>
+                Download
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">
+                <i class="bi-chat-left-dots dropdown-item-icon"></i>
+                Report
+              </a>
+              <a class="dropdown-item" href="#">
+                <i class="bi-trash dropdown-item-icon"></i>
+                Delete
+              </a>
+            </div>
+          </div>
+          <div class="card-body">
+            <img class="avatar avatar-4x3" src="./assets/svg/brands/google-slides-icon.svg" alt="Image Description" />
+          </div>
+          <div class="card-footer border-0">
+            <span class="d-block fs-6 text-muted mb-1">8 files</span>
+            <h5>Solving product design exercises</h5>
+          </div>
+          <a class="stretched-link" href="#"></a>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
-  <!-- End Nav -->
-    <!-- End Page Header -->
-
-    
 </main>
 <!-- ========== END MAIN CONTENT ========== -->
 
 <!-- ========== SECONDARY CONTENTS ========== -->
 <!-- Keyboard Shortcuts -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasKeyboardShortcuts" aria-labelledby="offcanvasKeyboardShortcutsLabel">
+<div
+  class="offcanvas offcanvas-end"
+  tabindex="-1"
+  id="offcanvasKeyboardShortcuts"
+  aria-labelledby="offcanvasKeyboardShortcutsLabel"
+>
   <div class="offcanvas-header">
     <h4 id="offcanvasKeyboardShortcutsLabel" class="mb-0">Keyboard shortcuts</h4>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -70,7 +138,9 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Ctrl</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">b</kbd>
+            <kbd class="d-inline-block mb-1">Ctrl</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">b</kbd>
           </div>
         </div>
         <!-- End Row -->
@@ -84,7 +154,9 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Ctrl</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">i</kbd>
+            <kbd class="d-inline-block mb-1">Ctrl</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">i</kbd>
           </div>
           <!-- End Col -->
         </div>
@@ -99,7 +171,9 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Ctrl</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">u</kbd>
+            <kbd class="d-inline-block mb-1">Ctrl</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">u</kbd>
           </div>
           <!-- End Col -->
         </div>
@@ -114,7 +188,11 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Ctrl</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">Alt</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">s</kbd>
+            <kbd class="d-inline-block mb-1">Ctrl</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">Alt</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">s</kbd>
             <!-- End Col -->
           </div>
         </div>
@@ -129,7 +207,9 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Ctrl</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">s</kbd>
+            <kbd class="d-inline-block mb-1">Ctrl</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">s</kbd>
           </div>
           <!-- End Col -->
         </div>
@@ -144,13 +224,14 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Ctrl</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">e</kbd>
+            <kbd class="d-inline-block mb-1">Ctrl</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">e</kbd>
           </div>
           <!-- End Col -->
         </div>
         <!-- End Row -->
       </div>
-
     </div>
 
     <div class="list-group list-group-sm list-group-flush list-group-no-gutters mb-5">
@@ -160,7 +241,10 @@
       <div class="list-group-item">
         <div class="row align-items-center">
           <div class="col-5">
-            <span>Mention person <a href="#">(@Brian)</a></span>
+            <span>
+              Mention person
+              <a href="#">(@Brian)</a>
+            </span>
           </div>
           <!-- End Col -->
 
@@ -175,7 +259,10 @@
       <div class="list-group-item">
         <div class="row align-items-center">
           <div class="col-5">
-            <span>Link to doc <a href="#">(+Meeting notes)</a></span>
+            <span>
+              Link to doc
+              <a href="#">(+Meeting notes)</a>
+            </span>
           </div>
           <!-- End Col -->
 
@@ -255,7 +342,6 @@
         </div>
         <!-- End Row -->
       </div>
-
     </div>
 
     <div class="list-group list-group-sm list-group-flush list-group-no-gutters mb-5">
@@ -270,7 +356,9 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Ctrl</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">r</kbd>
+            <kbd class="d-inline-block mb-1">Ctrl</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">r</kbd>
           </div>
           <!-- End Col -->
         </div>
@@ -285,7 +373,9 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Ctrl</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">n</kbd>
+            <kbd class="d-inline-block mb-1">Ctrl</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">n</kbd>
           </div>
           <!-- End Col -->
         </div>
@@ -300,7 +390,9 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Ctrl</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">p</kbd>
+            <kbd class="d-inline-block mb-1">Ctrl</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">p</kbd>
           </div>
           <!-- End Col -->
         </div>
@@ -330,7 +422,9 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Shift</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">Tab</kbd>
+            <kbd class="d-inline-block mb-1">Shift</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">Tab</kbd>
           </div>
           <!-- End Col -->
         </div>
@@ -345,7 +439,11 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Ctrl</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">Shift</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1"><i class="bi-arrow-up-short"></i></kbd>
+            <kbd class="d-inline-block mb-1">Ctrl</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">Shift</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1"><i class="bi-arrow-up-short"></i></kbd>
           </div>
           <!-- End Col -->
         </div>
@@ -360,7 +458,11 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Ctrl</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">Shift</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1"><i class="bi-arrow-down-short fs-5"></i></kbd>
+            <kbd class="d-inline-block mb-1">Ctrl</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">Shift</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1"><i class="bi-arrow-down-short fs-5"></i></kbd>
           </div>
           <!-- End Col -->
         </div>
@@ -375,7 +477,11 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Ctrl</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">Alt</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">m</kbd>
+            <kbd class="d-inline-block mb-1">Ctrl</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">Alt</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">m</kbd>
           </div>
           <!-- End Col -->
         </div>
@@ -390,7 +496,9 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Ctrl</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">z</kbd>
+            <kbd class="d-inline-block mb-1">Ctrl</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">z</kbd>
           </div>
           <!-- End Col -->
         </div>
@@ -405,13 +513,14 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Ctrl</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">y</kbd>
+            <kbd class="d-inline-block mb-1">Ctrl</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">y</kbd>
           </div>
           <!-- End Col -->
         </div>
         <!-- End Row -->
       </div>
-
     </div>
 
     <div class="list-group list-group-sm list-group-flush list-group-no-gutters">
@@ -426,7 +535,11 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Ctrl</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">Alt</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">n</kbd>
+            <kbd class="d-inline-block mb-1">Ctrl</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">Alt</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">n</kbd>
           </div>
           <!-- End Col -->
         </div>
@@ -441,7 +554,11 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Ctrl</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">Shift</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">p</kbd>
+            <kbd class="d-inline-block mb-1">Ctrl</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">Shift</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">p</kbd>
           </div>
           <!-- End Col -->
         </div>
@@ -456,7 +573,11 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Ctrl</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">Shift</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">s</kbd>
+            <kbd class="d-inline-block mb-1">Ctrl</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">Shift</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">s</kbd>
           </div>
           <!-- End Col -->
         </div>
@@ -471,7 +592,11 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Ctrl</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">Shift</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">o</kbd>
+            <kbd class="d-inline-block mb-1">Ctrl</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">Shift</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">o</kbd>
           </div>
           <!-- End Col -->
         </div>
@@ -486,20 +611,28 @@
           <!-- End Col -->
 
           <div class="col-7 text-end">
-            <kbd class="d-inline-block mb-1">Ctrl</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">Shift</kbd> <span class="text-muted small">+</span> <kbd class="d-inline-block mb-1">/</kbd>
+            <kbd class="d-inline-block mb-1">Ctrl</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">Shift</kbd>
+            <span class="text-muted small">+</span>
+            <kbd class="d-inline-block mb-1">/</kbd>
           </div>
           <!-- End Col -->
         </div>
         <!-- End Row -->
       </div>
-
     </div>
   </div>
 </div>
 <!-- End Keyboard Shortcuts -->
 
 <!-- Activity -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasActivityStream" aria-labelledby="offcanvasActivityStreamLabel">
+<div
+  class="offcanvas offcanvas-end"
+  tabindex="-1"
+  id="offcanvasActivityStream"
+  aria-labelledby="offcanvasActivityStreamLabel"
+>
   <div class="offcanvas-header">
     <h4 id="offcanvasActivityStreamLabel" class="mb-0">Activity stream</h4>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -511,13 +644,19 @@
       <li class="step-item">
         <div class="step-content-wrapper">
           <div class="step-avatar">
-            <img class="step-avatar" src="/static/dashboard-assets/img/160x160/img9.jpg" alt="Image Description">
+            <img class="step-avatar" src="/static/dashboard-assets/img/160x160/img9.jpg" alt="Image Description" />
           </div>
 
           <div class="step-content">
             <h5 class="mb-1">Iana Robinson</h5>
 
-            <p class="fs-5 mb-1">Added 2 files to task <a class="text-uppercase" href="#"><i class="bi-journal-bookmark-fill"></i> Fd-7</a></p>
+            <p class="fs-5 mb-1">
+              Added 2 files to task
+              <a class="text-uppercase" href="#">
+                <i class="bi-journal-bookmark-fill"></i>
+                Fd-7
+              </a>
+            </p>
 
             <ul class="list-group list-group-sm">
               <!-- List Item -->
@@ -527,10 +666,16 @@
                     <!-- Media -->
                     <div class="d-flex">
                       <div class="flex-shrink-0">
-                        <img class="avatar avatar-xs" src="/static/dashboard-assets/svg/brands/excel-icon.svg" alt="Image Description">
+                        <img
+                          class="avatar avatar-xs"
+                          src="/static/dashboard-assets/svg/brands/excel-icon.svg"
+                          alt="Image Description"
+                        />
                       </div>
                       <div class="flex-grow-1 text-truncate ms-2">
-                        <span class="d-block fs-6 text-dark text-truncate" title="weekly-reports.xls">weekly-reports.xls</span>
+                        <span class="d-block fs-6 text-dark text-truncate" title="weekly-reports.xls">
+                          weekly-reports.xls
+                        </span>
                         <span class="d-block small text-muted">12kb</span>
                       </div>
                     </div>
@@ -542,10 +687,16 @@
                     <!-- Media -->
                     <div class="d-flex">
                       <div class="flex-shrink-0">
-                        <img class="avatar avatar-xs" src="/static/dashboard-assets/svg/brands/word-icon.svg" alt="Image Description">
+                        <img
+                          class="avatar avatar-xs"
+                          src="/static/dashboard-assets/svg/brands/word-icon.svg"
+                          alt="Image Description"
+                        />
                       </div>
                       <div class="flex-grow-1 text-truncate ms-2">
-                        <span class="d-block fs-6 text-dark text-truncate" title="weekly-reports.xls">weekly-reports.xls</span>
+                        <span class="d-block fs-6 text-dark text-truncate" title="weekly-reports.xls">
+                          weekly-reports.xls
+                        </span>
                         <span class="d-block small text-muted">4kb</span>
                       </div>
                     </div>
@@ -572,7 +723,18 @@
           <div class="step-content">
             <h5 class="mb-1">Bob Dean</h5>
 
-            <p class="fs-5 mb-1">Marked <a class="text-uppercase" href="#"><i class="bi-journal-bookmark-fill"></i> Fr-6</a> as <span class="badge bg-soft-success text-success rounded-pill"><span class="legend-indicator bg-success"></span>"Completed"</span></p>
+            <p class="fs-5 mb-1">
+              Marked
+              <a class="text-uppercase" href="#">
+                <i class="bi-journal-bookmark-fill"></i>
+                Fr-6
+              </a>
+              as
+              <span class="badge bg-soft-success text-success rounded-pill">
+                <span class="legend-indicator bg-success"></span>
+                "Completed"
+              </span>
+            </p>
 
             <span class="small text-muted text-uppercase">Today</span>
           </div>
@@ -584,25 +746,40 @@
       <li class="step-item">
         <div class="step-content-wrapper">
           <div class="step-avatar">
-            <img class="step-avatar-img" src="/static/dashboard-assets/img/160x160/img3.jpg" alt="Image Description">
+            <img class="step-avatar-img" src="/static/dashboard-assets/img/160x160/img3.jpg" alt="Image Description" />
           </div>
 
           <div class="step-content">
             <h5 class="h5 mb-1">Crane</h5>
 
-            <p class="fs-5 mb-1">Added 5 card to <a href="#">Payments</a></p>
+            <p class="fs-5 mb-1">
+              Added 5 card to
+              <a href="#">Payments</a>
+            </p>
 
             <ul class="list-group list-group-sm">
               <li class="list-group-item list-group-item-light">
                 <div class="row gx-1">
                   <div class="col">
-                    <img class="img-fluid rounded" src="/static/dashboard-assets/svg/components/card-1.svg" alt="Image Description">
+                    <img
+                      class="img-fluid rounded"
+                      src="/static/dashboard-assets/svg/components/card-1.svg"
+                      alt="Image Description"
+                    />
                   </div>
                   <div class="col">
-                    <img class="img-fluid rounded" src="/static/dashboard-assets/svg/components/card-2.svg" alt="Image Description">
+                    <img
+                      class="img-fluid rounded"
+                      src="/static/dashboard-assets/svg/components/card-2.svg"
+                      alt="Image Description"
+                    />
                   </div>
                   <div class="col">
-                    <img class="img-fluid rounded" src="/static/dashboard-assets/svg/components/card-3.svg" alt="Image Description">
+                    <img
+                      class="img-fluid rounded"
+                      src="/static/dashboard-assets/svg/components/card-3.svg"
+                      alt="Image Description"
+                    />
                   </div>
                   <div class="col-auto align-self-center">
                     <div class="text-center">
@@ -639,13 +816,24 @@
       <li class="step-item">
         <div class="step-content-wrapper">
           <div class="step-avatar">
-            <img class="step-avatar-img" src="/static/dashboard-assets/img/160x160/img7.jpg" alt="Image Description">
+            <img class="step-avatar-img" src="/static/dashboard-assets/img/160x160/img7.jpg" alt="Image Description" />
           </div>
 
           <div class="step-content">
             <h5 class="mb-1">Rachel King</h5>
 
-            <p class="fs-5 mb-1">Marked <a class="text-uppercase" href="#"><i class="bi-journal-bookmark-fill"></i> Fr-3</a> as <span class="badge bg-soft-success text-success rounded-pill"><span class="legend-indicator bg-success"></span>"Completed"</span></p>
+            <p class="fs-5 mb-1">
+              Marked
+              <a class="text-uppercase" href="#">
+                <i class="bi-journal-bookmark-fill"></i>
+                Fr-3
+              </a>
+              as
+              <span class="badge bg-soft-success text-success rounded-pill">
+                <span class="legend-indicator bg-success"></span>
+                "Completed"
+              </span>
+            </p>
 
             <span class="small text-muted text-uppercase">Apr 29</span>
           </div>
@@ -657,13 +845,17 @@
       <li class="step-item">
         <div class="step-content-wrapper">
           <div class="step-avatar">
-            <img class="step-avatar-img" src="/static/dashboard-assets/img/160x160/img5.jpg" alt="Image Description">
+            <img class="step-avatar-img" src="/static/dashboard-assets/img/160x160/img5.jpg" alt="Image Description" />
           </div>
 
           <div class="step-content">
             <h5 class="mb-1">Finch Hoot</h5>
 
-            <p class="fs-5 mb-1">Earned a "Top endorsed" <i class="bi-patch-check-fill text-primary"></i> badge</p>
+            <p class="fs-5 mb-1">
+              Earned a "Top endorsed"
+              <i class="bi-patch-check-fill text-primary"></i>
+              badge
+            </p>
 
             <span class="small text-muted text-uppercase">Apr 06</span>
           </div>
@@ -681,7 +873,18 @@
           <div class="step-content">
             <h5 class="mb-1">Project status updated</h5>
 
-            <p class="fs-5 mb-1">Marked <a class="text-uppercase" href="#"><i class="bi-journal-bookmark-fill"></i> Fr-3</a> as <span class="badge bg-soft-primary text-primary rounded-pill"><span class="legend-indicator bg-primary"></span>"In progress"</span></p>
+            <p class="fs-5 mb-1">
+              Marked
+              <a class="text-uppercase" href="#">
+                <i class="bi-journal-bookmark-fill"></i>
+                Fr-3
+              </a>
+              as
+              <span class="badge bg-soft-primary text-primary rounded-pill">
+                <span class="legend-indicator bg-primary"></span>
+                "In progress"
+              </span>
+            </p>
 
             <span class="small text-muted text-uppercase">Feb 10</span>
           </div>
@@ -692,7 +895,10 @@
     <!-- End Step -->
 
     <div class="d-grid">
-      <a class="btn btn-white" href="javascript:;">View all <i class="bi-chevron-right"></i></a>
+      <a class="btn btn-white" href="javascript:;">
+        View all
+        <i class="bi-chevron-right"></i>
+      </a>
     </div>
   </div>
 </div>
@@ -704,7 +910,12 @@
     <div class="modal-content">
       <!-- Header -->
       <div class="modal-close">
-        <button type="button" class="btn btn-ghost-secondary btn-icon btn-sm" data-bs-dismiss="modal" aria-label="Close">
+        <button
+          type="button"
+          class="btn btn-ghost-secondary btn-icon btn-sm"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
           <i class="bi-x-lg"></i>
         </button>
       </div>
@@ -714,8 +925,18 @@
       <div class="modal-body p-sm-5">
         <div class="text-center">
           <div class="w-75 w-sm-50 mx-auto mb-4">
-            <img class="img-fluid" src="/static/dashboard-assets/svg/illustrations/oc-collaboration.svg" alt="Image Description" data-hs-theme-appearance="default">
-            <img class="img-fluid" src="/static/dashboard-assets/svg/illustrations-light/oc-collaboration.svg" alt="Image Description" data-hs-theme-appearance="dark">
+            <img
+              class="img-fluid"
+              src="/static/dashboard-assets/svg/illustrations/oc-collaboration.svg"
+              alt="Image Description"
+              data-hs-theme-appearance="default"
+            />
+            <img
+              class="img-fluid"
+              src="/static/dashboard-assets/svg/illustrations-light/oc-collaboration.svg"
+              alt="Image Description"
+              data-hs-theme-appearance="dark"
+            />
           </div>
 
           <h4 class="h1">Welcome to Front</h4>
@@ -732,16 +953,28 @@
         <div class="w-85 mx-auto">
           <div class="row justify-content-between">
             <div class="col">
-              <img class="img-fluid" src="/static/dashboard-assets/svg/brands/gitlab-gray.svg" alt="Image Description">
+              <img
+                class="img-fluid"
+                src="/static/dashboard-assets/svg/brands/gitlab-gray.svg"
+                alt="Image Description"
+              />
             </div>
             <div class="col">
-              <img class="img-fluid" src="/static/dashboard-assets/svg/brands/fitbit-gray.svg" alt="Image Description">
+              <img
+                class="img-fluid"
+                src="/static/dashboard-assets/svg/brands/fitbit-gray.svg"
+                alt="Image Description"
+              />
             </div>
             <div class="col">
-              <img class="img-fluid" src="/static/dashboard-assets/svg/brands/flow-xo-gray.svg" alt="Image Description">
+              <img
+                class="img-fluid"
+                src="/static/dashboard-assets/svg/brands/flow-xo-gray.svg"
+                alt="Image Description"
+              />
             </div>
             <div class="col">
-              <img class="img-fluid" src="/static/dashboard-assets/svg/brands/layar-gray.svg" alt="Image Description">
+              <img class="img-fluid" src="/static/dashboard-assets/svg/brands/layar-gray.svg" alt="Image Description" />
             </div>
           </div>
         </div>
@@ -754,7 +987,13 @@
 <!-- End Welcome Message Modal -->
 
 <!-- Export Products Modal -->
-<div class="modal fade" id="exportProductsModal" tabindex="-1" aria-labelledby="exportProductsModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="exportProductsModal"
+  tabindex="-1"
+  aria-labelledby="exportProductsModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <!-- Header -->
@@ -766,7 +1005,10 @@
 
       <!-- Body -->
       <div class="modal-body">
-        <p>This CSV file can update all product information. To update just inventory quantites use the <a class="link" href="#">CSV file for inventory.</a></p>
+        <p>
+          This CSV file can update all product information. To update just inventory quantites use the
+          <a class="link" href="#">CSV file for inventory.</a>
+        </p>
 
         <div class="mb-4">
           <label class="form-label">Export</label>
@@ -774,28 +1016,28 @@
           <div class="d-grid gap-2">
             <!-- Form Check -->
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="exportProductsRadio" id="exportProductsRadio1" checked>
-              <label class="form-check-label" for="exportProductsRadio1">
-                Current page
-              </label>
+              <input
+                class="form-check-input"
+                type="radio"
+                name="exportProductsRadio"
+                id="exportProductsRadio1"
+                checked
+              />
+              <label class="form-check-label" for="exportProductsRadio1">Current page</label>
             </div>
             <!-- End Form Check -->
 
             <!-- Form Check -->
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="exportProductsRadio" id="exportProductsRadio2">
-              <label class="form-check-label" for="exportProductsRadio2">
-                All products
-              </label>
+              <input class="form-check-input" type="radio" name="exportProductsRadio" id="exportProductsRadio2" />
+              <label class="form-check-label" for="exportProductsRadio2">All products</label>
             </div>
             <!-- End Form Check -->
 
             <!-- Form Check -->
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="exportProductsRadio" id="exportProductsRadio3">
-              <label class="form-check-label" for="exportProductsRadio3">
-                Selected: 20 products
-              </label>
+              <input class="form-check-input" type="radio" name="exportProductsRadio" id="exportProductsRadio3" />
+              <label class="form-check-label" for="exportProductsRadio3">Selected: 20 products</label>
             </div>
             <!-- End Form Check -->
           </div>
@@ -805,7 +1047,13 @@
 
         <!-- Form Check -->
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="exportProductsAsRadio" id="exportProductsAsRadio1" checked>
+          <input
+            class="form-check-input"
+            type="radio"
+            name="exportProductsAsRadio"
+            id="exportProductsAsRadio1"
+            checked
+          />
           <label class="form-check-label" for="exportProductsAsRadio1">
             CSV for Excel, Numbers, or other spreadsheet programs
           </label>
@@ -814,10 +1062,8 @@
 
         <!-- Form Check -->
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="exportProductsAsRadio" id="exportProductsAsRadio2">
-          <label class="form-check-label" for="exportProductsAsRadio2">
-            Plain CSV file
-          </label>
+          <input class="form-check-input" type="radio" name="exportProductsAsRadio" id="exportProductsAsRadio2" />
+          <label class="form-check-label" for="exportProductsAsRadio2">Plain CSV file</label>
         </div>
         <!-- End Form Check -->
       </div>
@@ -835,7 +1081,13 @@
 <!-- End Export Products Modal -->
 
 <!-- Import Products Modal -->
-<div class="modal fade" id="importProductsModal" tabindex="-1" aria-labelledby="importProductsModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="importProductsModal"
+  tabindex="-1"
+  aria-labelledby="importProductsModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <!-- Header -->
@@ -847,13 +1099,26 @@
 
       <!-- Body -->
       <div class="modal-body">
-        <p><a class="link" href="#">Download a sample CSV template</a> to see an example of the format required.</p>
+        <p>
+          <a class="link" href="#">Download a sample CSV template</a>
+          to see an example of the format required.
+        </p>
 
         <!-- Dropzone -->
         <div id="attachFilesNewProjectLabel" class="js-dropzone dz-dropzone dz-dropzone-card mb-4">
           <div class="dz-message">
-            <img class="avatar avatar-xl avatar-4x3 mb-3" src="/static/dashboard-assets/svg/illustrations/oc-browse.svg" alt="Image Description" data-hs-theme-appearance="default">
-            <img class="avatar avatar-xl avatar-4x3 mb-3" src="/static/dashboard-assets/svg/illustrations-light/oc-browse.svg" alt="Image Description" data-hs-theme-appearance="dark">
+            <img
+              class="avatar avatar-xl avatar-4x3 mb-3"
+              src="/static/dashboard-assets/svg/illustrations/oc-browse.svg"
+              alt="Image Description"
+              data-hs-theme-appearance="default"
+            />
+            <img
+              class="avatar avatar-xl avatar-4x3 mb-3"
+              src="/static/dashboard-assets/svg/illustrations-light/oc-browse.svg"
+              alt="Image Description"
+              data-hs-theme-appearance="dark"
+            />
 
             <h5>Drag and drop your file here</h5>
 
@@ -866,9 +1131,11 @@
 
         <!-- Form Check -->
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="overwriteCurrentProductsCheckbox">
+          <input class="form-check-input" type="checkbox" value="" id="overwriteCurrentProductsCheckbox" />
           <label class="form-check-label" for="overwriteCurrentProductsCheckbox">
-            Overwrite any current products that have the same handle. Existing values will be used for any missing columns. <a href="#">Learn more</a>
+            Overwrite any current products that have the same handle. Existing values will be used for any missing
+            columns.
+            <a href="#">Learn more</a>
           </label>
         </div>
         <!-- End Form Check -->
@@ -888,7 +1155,12 @@
 <!-- End Import Products Modal -->
 
 <!-- Product Filter Modal -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEcommerceProductFilter" aria-labelledby="offcanvasEcommerceProductFilterLabel">
+<div
+  class="offcanvas offcanvas-end"
+  tabindex="-1"
+  id="offcanvasEcommerceProductFilter"
+  aria-labelledby="offcanvasEcommerceProductFilterLabel"
+>
   <div class="offcanvas-header">
     <h4 id="offcanvasEcommerceProductFilterLabel" class="mb-0">Filters</h4>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -901,56 +1173,104 @@
         <div class="d-grid gap-2 mb-2">
           <!-- Form Check -->
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="productAvailabilityFilterRadio" value="" id="productVendorFilterRadio1">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="productAvailabilityFilterRadio"
+              value=""
+              id="productVendorFilterRadio1"
+            />
             <label class="form-check-label" for="productVendorFilterRadio1">Google</label>
           </div>
           <!-- End Form Check -->
 
           <!-- Form Check -->
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="productAvailabilityFilterRadio" value="" id="productVendorFilterRadio2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="productAvailabilityFilterRadio"
+              value=""
+              id="productVendorFilterRadio2"
+            />
             <label class="form-check-label" for="productVendorFilterRadio2">Topman</label>
           </div>
           <!-- End Form Check -->
 
           <!-- Form Check -->
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="productAvailabilityFilterRadio" value="" id="productVendorFilterRadio3">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="productAvailabilityFilterRadio"
+              value=""
+              id="productVendorFilterRadio3"
+            />
             <label class="form-check-label" for="productVendorFilterRadio3">RayBan</label>
           </div>
           <!-- End Form Check -->
 
           <!-- Form Check -->
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="productAvailabilityFilterRadio" value="" id="productVendorFilterRadio4">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="productAvailabilityFilterRadio"
+              value=""
+              id="productVendorFilterRadio4"
+            />
             <label class="form-check-label" for="productVendorFilterRadio4">Mango</label>
           </div>
           <!-- End Form Check -->
 
           <!-- Form Check -->
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="productAvailabilityFilterRadio" value="" id="productVendorFilterRadio5">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="productAvailabilityFilterRadio"
+              value=""
+              id="productVendorFilterRadio5"
+            />
             <label class="form-check-label" for="productVendorFilterRadio5">Calvin Klein</label>
           </div>
           <!-- End Form Check -->
 
           <!-- Form Check -->
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="productAvailabilityFilterRadio" value="" id="productVendorFilterRadio6">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="productAvailabilityFilterRadio"
+              value=""
+              id="productVendorFilterRadio6"
+            />
             <label class="form-check-label" for="productVendorFilterRadio6">Givenchy</label>
           </div>
           <!-- End Form Check -->
 
           <!-- Form Check -->
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="productAvailabilityFilterRadio" value="" id="productVendorFilterRadio7">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="productAvailabilityFilterRadio"
+              value=""
+              id="productVendorFilterRadio7"
+            />
             <label class="form-check-label" for="productVendorFilterRadio7">Asos</label>
           </div>
           <!-- End Form Check -->
 
           <!-- Form Check -->
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="productAvailabilityFilterRadio" value="" id="productVendorFilterRadio8">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="productAvailabilityFilterRadio"
+              value=""
+              id="productVendorFilterRadio8"
+            />
             <label class="form-check-label" for="productVendorFilterRadio8">Apple</label>
           </div>
           <!-- End Form Check -->
@@ -961,49 +1281,91 @@
         <div class="d-grid gap-2 mb-2">
           <!-- Form Check -->
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="productAvailabilityFilterRadio" value="" id="productVendorFilterRadio9">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="productAvailabilityFilterRadio"
+              value=""
+              id="productVendorFilterRadio9"
+            />
             <label class="form-check-label" for="productVendorFilterRadio9">Times</label>
           </div>
           <!-- End Form Check -->
 
           <!-- Form Check -->
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="productAvailabilityFilterRadio" value="" id="productVendorFilterRadio10">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="productAvailabilityFilterRadio"
+              value=""
+              id="productVendorFilterRadio10"
+            />
             <label class="form-check-label" for="productVendorFilterRadio10">Asos</label>
           </div>
           <!-- End Form Check -->
 
           <!-- Form Check -->
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="productAvailabilityFilterRadio" value="" id="productVendorFilterRadio11">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="productAvailabilityFilterRadio"
+              value=""
+              id="productVendorFilterRadio11"
+            />
             <label class="form-check-label" for="productVendorFilterRadio11">Nike Jordan</label>
           </div>
           <!-- End Form Check -->
 
           <!-- Form Check -->
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="productAvailabilityFilterRadio" value="" id="productVendorFilterRadio12">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="productAvailabilityFilterRadio"
+              value=""
+              id="productVendorFilterRadio12"
+            />
             <label class="form-check-label" for="productVendorFilterRadio12">VA RVCA</label>
           </div>
           <!-- End Form Check -->
 
           <!-- Form Check -->
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="productAvailabilityFilterRadio" value="" id="productVendorFilterRadio13">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="productAvailabilityFilterRadio"
+              value=""
+              id="productVendorFilterRadio13"
+            />
             <label class="form-check-label" for="productVendorFilterRadio13">Levis</label>
           </div>
           <!-- End Form Check -->
 
           <!-- Form Check -->
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="productAvailabilityFilterRadio" value="" id="productVendorFilterRadio14">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="productAvailabilityFilterRadio"
+              value=""
+              id="productVendorFilterRadio14"
+            />
             <label class="form-check-label" for="productVendorFilterRadio14">Beats</label>
           </div>
           <!-- End Form Check -->
 
           <!-- Form Check -->
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="productAvailabilityFilterRadio" value="" id="productVendorFilterRadio15">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="productAvailabilityFilterRadio"
+              value=""
+              id="productVendorFilterRadio15"
+            />
             <label class="form-check-label" for="productVendorFilterRadio15">Clarks</label>
           </div>
           <!-- End Form Check -->
@@ -1013,84 +1375,131 @@
     <!-- End Row -->
 
     <a class="link mt-2" href="javascript:;">
-      <i class="bi-x"></i> Clear
+      <i class="bi-x"></i>
+      Clear
     </a>
 
-    <hr>
+    <hr />
 
     <span class="text-cap small">Availability</span>
 
     <div class="d-grid gap-2 mb-2">
       <!-- Form Check -->
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="productAvailabilityFilterRadio" value="" id="productAvailabilityFilterRadio1">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="productAvailabilityFilterRadio"
+          value=""
+          id="productAvailabilityFilterRadio1"
+        />
         <label class="form-check-label" for="productAvailabilityFilterRadio1">Available on Online Store</label>
       </div>
       <!-- End Form Check -->
 
       <!-- Form Check -->
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="productAvailabilityFilterRadio" value="" id="productAvailabilityFilterRadio2">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="productAvailabilityFilterRadio"
+          value=""
+          id="productAvailabilityFilterRadio2"
+        />
         <label class="form-check-label" for="productAvailabilityFilterRadio2">Unavailable on Online Store</label>
       </div>
       <!-- End Form Check -->
     </div>
 
     <a class="link mt-2" href="javascript:;">
-      <i class="bi-x"></i> Clear
+      <i class="bi-x"></i>
+      Clear
     </a>
 
-    <hr>
+    <hr />
 
     <span class="text-cap small">Tagged with</span>
 
     <div class="mb-2">
-      <input type="text" class="form-control" name="tagsName" id="tagsLabel" placeholder="Enter tags here" aria-label="Enter tags here">
+      <input
+        type="text"
+        class="form-control"
+        name="tagsName"
+        id="tagsLabel"
+        placeholder="Enter tags here"
+        aria-label="Enter tags here"
+      />
     </div>
 
     <a class="link mt-2" href="javascript:;">
-      <i class="bi-x"></i> Clear
+      <i class="bi-x"></i>
+      Clear
     </a>
 
-    <hr>
+    <hr />
 
     <span class="text-cap small">Product type</span>
 
     <div class="d-grid gap-2 mb-2">
       <!-- Form Check -->
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="productTypeFilterRadio" value="" id="productTypeFilterRadio1">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="productTypeFilterRadio"
+          value=""
+          id="productTypeFilterRadio1"
+        />
         <label class="form-check-label" for="productTypeFilterRadio1">Shoes</label>
       </div>
       <!-- End Form Check -->
 
       <!-- Form Check -->
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="productTypeFilterRadio" value="" id="productTypeFilterRadio2">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="productTypeFilterRadio"
+          value=""
+          id="productTypeFilterRadio2"
+        />
         <label class="form-check-label" for="productTypeFilterRadio2">Accessories</label>
       </div>
       <!-- End Form Check -->
 
       <!-- Form Check -->
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="productTypeFilterRadio" value="" id="productTypeFilterRadio3">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="productTypeFilterRadio"
+          value=""
+          id="productTypeFilterRadio3"
+        />
         <label class="form-check-label" for="productTypeFilterRadio3">Clothing</label>
       </div>
       <!-- End Form Check -->
 
       <!-- Form Check -->
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="productTypeFilterRadio" value="" id="productTypeFilterRadio4">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="productTypeFilterRadio"
+          value=""
+          id="productTypeFilterRadio4"
+        />
         <label class="form-check-label" for="productTypeFilterRadio4">Electronics</label>
       </div>
       <!-- End Form Check -->
     </div>
 
     <a class="link mt-2" href="javascript:;">
-      <i class="bi-x"></i> Clear
+      <i class="bi-x"></i>
+      Clear
     </a>
 
-    <hr>
+    <hr />
 
     <span class="text-cap small">Collection</span>
 
@@ -1100,19 +1509,25 @@
         <i class="bi-search"></i>
       </div>
 
-      <input type="search" class="form-control" placeholder="Search for collections" aria-label="Search for collections">
+      <input
+        type="search"
+        class="form-control"
+        placeholder="Search for collections"
+        aria-label="Search for collections"
+      />
     </div>
     <!-- End Input Group -->
 
     <!-- Form Check -->
     <div class="form-check mb-2">
-      <input class="form-check-input" type="radio" value="" id="productCollectionFilterRadio1">
+      <input class="form-check-input" type="radio" value="" id="productCollectionFilterRadio1" />
       <label class="form-check-label" for="productCollectionFilterRadio1">Home page</label>
     </div>
     <!-- End Form Check -->
 
     <a class="link mt-2" href="javascript:;">
-      <i class="bi-x"></i> Clear
+      <i class="bi-x"></i>
+      Clear
     </a>
   </div>
   <!-- End Body -->
@@ -1140,7 +1555,4 @@
 </div>
 <!-- End Product Filter Modal -->
 <!-- ========== END SECONDARY CONTENTS ========== -->
-{{end}} {{define "js"}}
-
-
-{{ end }}
+{{end}} {{define "js"}} {{ end }}
